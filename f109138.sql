@@ -33,14 +33,17 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
+--   Date and Time:   11:49 Saturday October 12, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                      7
---       Items:                    5
---       Processes:                6
---       Regions:                  5
---       Buttons:                  3
+--     Pages:                      8
+--       Items:                   11
+--       Validations:              1
+--       Processes:                7
+--       Regions:                  6
+--       Buttons:                  4
+--       Dynamic Actions:          2
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -153,7 +156,7 @@ wwv_flow_imp_shared.create_list(
  p_id=>wwv_flow_imp.id(54263788518806069318)
 ,p_name=>'Navigation Menu'
 ,p_list_status=>'PUBLIC'
-,p_version_scn=>15583885236467
+,p_version_scn=>15583893952431
 );
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54264688493700069521)
@@ -201,6 +204,7 @@ wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54306908143191790677)
 ,p_list_item_display_sequence=>90
 ,p_list_item_link_text=>unistr('Zmie\0144 przydzia\0142 pracownika')
+,p_list_item_link_target=>'f?p=&APP_ID.:8:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_imp.id(54275872598808289406)
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
@@ -18965,6 +18969,225 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_when_button_id=>wwv_flow_imp.id(54547191753945162591)
 ,p_internal_uid=>54547192696199162592
+);
+end;
+/
+prompt --application/pages/page_00008
+begin
+wwv_flow_imp_page.create_page(
+ p_id=>8
+,p_name=>unistr('Zmiana przydzia\0142u pracownika')
+,p_alias=>unistr('ZMIANA-PRZYDZIA\0141U-PRACOWNIKA')
+,p_step_title=>unistr('Zmiana przydzia\0142u pracownika')
+,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'.PRZYCISK {',
+'    border: 1px solid black; ',
+'    border-radius: 5px;  ',
+'    background-color: lightgreen;',
+'    display: flex;',
+'    padding: 2px;',
+'    justify-content: center;',
+'    align-items: center;',
+'    font-size: 2px;',
+'}',
+'',
+'.PRZYCISK:hover{',
+'    color: lightgreen;',
+'    background-color: black;',
+'}'))
+,p_page_template_options=>'#DEFAULT#'
+,p_protection_level=>'C'
+,p_page_component_map=>'16'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(54315756033303685526)
+,p_plug_name=>unistr('Zmiana oddzia\0142u')
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_imp.id(54264491392900069362)
+,p_plug_display_sequence=>20
+,p_location=>null
+,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
+  'expand_shortcuts', 'N',
+  'output_as', 'HTML')).to_clob
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(54315756161555685527)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_button_name=>'P8_SAVE'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(54264565071975069396)
+,p_button_image_alt=>unistr('Zmie\0144')
+,p_button_position=>'CLOSE'
+,p_show_processing=>'Y'
+,p_confirm_message=>unistr('Zmieni\0107 oddzia\0142 pracownika &P8_PRACOWNIK_SELECT. na &P8_ODDZIAL_SELECT.?')
+,p_confirm_style=>'information'
+,p_database_action=>'UPDATE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315755489129685520)
+,p_name=>'P8_ODDZIAL'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_prompt=>unistr('Aktualny oddzia\0142')
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>'select dname, deptno from dept'
+,p_cHeight=>1
+,p_colspan=>2
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315755572998685521)
+,p_name=>'P8_PRACOWNIK'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_prompt=>'Pracownik'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>'select ename, empno from emp where deptno = :P8_ODDZIAL'
+,p_lov_cascade_parent_items=>'P8_ODDZIAL'
+,p_ajax_items_to_submit=>'P8_ODDZIAL'
+,p_ajax_optimize_refresh=>'Y'
+,p_cHeight=>1
+,p_begin_on_new_line=>'N'
+,p_colspan=>2
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315755975627685525)
+,p_name=>'P8_ODDZIAL_D'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_prompt=>unistr('Oddzia\0142 docelowy')
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>'select dname, deptno from dept'
+,p_cHeight=>1
+,p_begin_on_new_line=>'N'
+,p_colspan=>2
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315756283118685528)
+,p_name=>'P8_PRACOWNIK_SELECT'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315756969286685535)
+,p_name=>'P8_ODDZIAL_SELECT'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(54315757388260685539)
+,p_name=>'P8_WALIDACJA'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(54315757258996685538)
+,p_validation_name=>'P8_WALIDACJA_TEN_SAM'
+,p_validation_sequence=>10
+,p_validation=>':P8_ODDZIAL <> :P8_ODDZIAL_D'
+,p_validation2=>'PLSQL'
+,p_validation_type=>'EXPRESSION'
+,p_error_message=>unistr('Nie mo\017Cesz zmieni\0107 oddzia\0142u na ten sam!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(54315756161555685527)
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(54315756575031685531)
+,p_name=>'New'
+,p_event_sequence=>10
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P8_PRACOWNIK'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(54315756680572685532)
+,p_event_id=>wwv_flow_imp.id(54315756575031685531)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_name=>'GET_PRACOWNIK'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'select ename into :P8_PRACOWNIK_SELECT from emp where empno = :P8_PRACOWNIK;',
+'end;'))
+,p_attribute_02=>'P8_PRACOWNIK'
+,p_attribute_03=>'P8_PRACOWNIK_SELECT'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(54315757012120685536)
+,p_name=>'New_1'
+,p_event_sequence=>20
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P8_ODDZIAL_D'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(54315757180070685537)
+,p_event_id=>wwv_flow_imp.id(54315757012120685536)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_name=>'GET_ODDZIAL'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'select dname into :P8_ODDZIAL_SELECT from dept where deptno = :P8_ODDZIAL_D;',
+'end;'))
+,p_attribute_02=>'P8_ODDZIAL_D'
+,p_attribute_03=>'P8_ODDZIAL_SELECT'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(54315757865960685544)
+,p_process_sequence=>10
+,p_process_point=>'ON_SUBMIT_BEFORE_COMPUTATION'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'P8_ZMIANA_PROCES'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'',
+'update emp',
+'set deptno = :P8_ODDZIAL_D',
+'where empno = :P8_PRACOWNIK;',
+'',
+'',
+'end;'))
+,p_process_clob_language=>'PLSQL'
+,p_process_error_message=>unistr('Wyst\0105pi\0142 b\0142\0105d podczas zmiany oddzia\0142u.')
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>unistr('Poprawnie zmieniono oddzia\0142 pracownika &P8_PRACOWNIK_SELECT.')
+,p_internal_uid=>54315757865960685544
 );
 end;
 /
