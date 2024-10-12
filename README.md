@@ -1,4 +1,4 @@
-<h1>Aplikacja Portal-HR do zarządzanai pracownikami i oddziałami.</h1>
+<h1>Aplikacja Portal-HR zarządzanie</h1>
 
 <b>Przegląd pracowników w formie tree</b>
 ![image](https://github.com/user-attachments/assets/53763ac1-f057-49d5-be84-b0bdf3794a4b)
