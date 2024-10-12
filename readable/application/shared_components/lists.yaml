@@ -1,0 +1,264 @@
+---
+- # ====== List: Navigation Menu ===============================
+  id: 54263788518806069318
+  identification: 
+    name: Navigation Menu
+
+  subscription: 
+    version-number: 15583885236467
+
+  source: 
+    type: Static Values
+
+  entries: 
+  - # ====== Entry: Przegląd danych ==============================
+    id: 54264688493700069521
+    label: 
+      label: Przegląd danych
+
+    layout: 
+      sequence: 10
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Oddziały =====================================
+    id: 54275856502634287028
+    label: 
+      label: Oddziały
+
+    layout: 
+      sequence: 30
+      parent-entry: Przegląd danych # 54264688493700069521
+
+    is-current: 
+      type: Target Page
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:6:&SESSION.::&DEBUG.::::'
+        page: 6 # Przegląd oddziałów
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Edycja/wprowadzanie danych ===================
+    id: 54275871190372288399
+    label: 
+      label: Edycja/wprowadzanie danych
+
+    layout: 
+      sequence: 40
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Pracownicy ===================================
+    id: 54275872598808289406
+    label: 
+      label: Pracownicy
+
+    layout: 
+      sequence: 50
+      parent-entry: Edycja/wprowadzanie danych # 54275871190372288399
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Oddziały =====================================
+    id: 54276032175323988600
+    label: 
+      label: Oddziały
+
+    layout: 
+      sequence: 60
+      parent-entry: Edycja/wprowadzanie danych # 54275871190372288399
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Pracownicy ===================================
+    id: 54290634243810255305
+    label: 
+      label: Pracownicy
+
+    layout: 
+      sequence: 20
+      parent-entry: Przegląd danych # 54264688493700069521
+
+    is-current: 
+      type: Target Page
+
+    link: 
+      target: 
+        url: 'f?p=&APP_ID.:4:&SESSION.::&DEBUG.::::'
+        page: 4 # Przegląd pracowników
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Wprowadź oddział =============================
+    id: 54306896050534788081
+    label: 
+      label: Wprowadź oddział
+
+    layout: 
+      sequence: 70
+      parent-entry: Oddziały # 54276032175323988600
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Wprowadź pracownika ==========================
+    id: 54306900938650789596
+    label: 
+      label: Wprowadź pracownika
+
+    layout: 
+      sequence: 80
+      parent-entry: Pracownicy # 54275872598808289406
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Zmień przydział pracownika ===================
+    id: 54306908143191790677
+    label: 
+      label: Zmień przydział pracownika
+
+    layout: 
+      sequence: 90
+      parent-entry: Pracownicy # 54275872598808289406
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+  - # ====== Entry: Edytuj oddział ===============================
+    id: 54307349177648489997
+    label: 
+      label: Edytuj oddział
+
+    layout: 
+      sequence: 100
+      parent-entry: Oddziały # 54276032175323988600
+
+    is-current: 
+      type: Target Page
+
+    user-defined-attributes: 
+      translatable: false
+
+- # ====== List: Navigation Bar ================================
+  id: 54264677842294069510
+  identification: 
+    name: Navigation Bar
+
+  subscription: 
+    version-number: 15583795519086
+
+  source: 
+    type: Static Values
+
+  entries: 
+  - # ====== Entry: &APP_USER. ===================================
+    id: 54264689971359069524
+    label: 
+      label: '&APP_USER.'
+
+    icon: 
+      image/icon-css-classes: fa-user
+
+    layout: 
+      sequence: 10
+
+    is-current: 
+      type: Target Page
+
+    link: 
+      target: '#'
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+      2.: has-username
+
+  - # ====== Entry: --- ==========================================
+    id: 54264690427275069524
+    label: 
+      label: '---'
+
+    layout: 
+      sequence: 20
+      parent-entry: '&APP_USER.' # 54264689971359069524
+
+    is-current: 
+      type: Target Page
+
+    link: 
+      target: separator
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+
+    server-side-condition: 
+      type: User is Authenticated (not public)
+
+  - # ====== Entry: Sign Out =====================================
+    id: 54264690810107069525
+    label: 
+      label: Sign Out
+
+    icon: 
+      image/icon-css-classes: fa-sign-out
+
+    layout: 
+      sequence: 30
+      parent-entry: '&APP_USER.' # 54264689971359069524
+
+    is-current: 
+      type: Target Page
+
+    link: 
+      target: '&LOGOUT_URL.'
+
+    click-counting: 
+      count-clicks: false
+
+    user-defined-attributes: 
+      translatable: false
+
+    server-side-condition: 
+      type: User is Authenticated (not public)
+
