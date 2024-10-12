@@ -1,0 +1,114 @@
+---
+# ====== Page: Przegląd pracowników ==========================
+id: 4
+identification: 
+  name: Przegląd pracowników
+  alias: PRZEGLĄD-PRACOWNIKÓW
+  title: Przegląd pracowników
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: P4_PRZEGLAD_PRACOWNIKOW =====================
+  id: 54289292728538232001
+  identification: 
+    name: P4_PRZEGLAD_PRACOWNIKOW
+    title: Pracownicy - drzewo zatrudnienia
+    type: Tree
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select EMPNO,
+             ENAME,
+             JOB,
+             MGR,
+             HIREDATE,
+             SAL,
+             COMM,
+             DEPTNO,
+             JOB || ' ['|| ENAME || ']' AS INFO
+        from EMP
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Standard
+    template-options: 
+    - '#DEFAULT#'
+    - t-Region--scrollBody
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    static-id: P4_PRZEGLAD
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  server-cache: 
+    caching: Disabled
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    settings: 
+      node-label-column: INFO
+      hierarchy: Computed with SQL
+      node-id-column: EMPNO
+      parent-key-column: MGR
+      start-tree-with: Value is NULL
+      tooltip: None
+      activate-node-link-with: Single Click
+      link: 
+        url: 'f?p=&APP_ID.:5:&SESSION.::&DEBUG.::P5_EMPNO:&EMPNO.'
+        page: 5 # Szczegóły - pracownik
+        values: 
+          p5_empno: '&EMPNO.'
+
+      default-icon-css-class: fa fa-user-circle
+      icon-type-css-class: a-Icon
+
+    performance: 
+      lazy-loading: false
+
