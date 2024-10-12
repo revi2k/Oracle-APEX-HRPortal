@@ -1,0 +1,234 @@
+---
+# ====== Page: Przegląd oddziałów ============================
+id: 6
+identification: 
+  name: Przegląd oddziałów
+  alias: PRZEGLĄD-ODDZIAŁÓW
+  title: Przegląd oddziałów
+
+appearance: 
+  page-mode: Normal
+  page-template: Theme Default
+  template-options: 
+  - '#DEFAULT#'
+
+navigation-menu: 
+  override-user-interface-level: false
+
+navigation: 
+  cursor-focus: Do not focus cursor
+  warn-on-unsaved-changes: true
+
+css: 
+  inline: |
+    .PRZYCISK {
+        border: 1px solid black; 
+        border-radius: 5px;  
+        background-color: lightgreen;
+        display: flex;
+        padding: 2px;
+        justify-content: center;
+        align-items: center;
+        font-size: 2px;
+    }
+    
+    .PRZYCISK:hover{
+        color: lightgreen;
+        background-color: black;
+    }
+
+security: 
+  authentication: Page Requires Authentication
+  deep-linking: Application Default
+  page-access-protection: Arguments Must Have Checksum
+  form-auto-complete: Off
+  browser-cache: Application Default
+
+session-management: 
+  rejoin-sessions: Application Default
+
+advanced: 
+  enable-duplicate-page-submissions: Yes - Enable page to be re-posted
+  reload-on-submit: Only for Success
+
+server-cache: 
+  caching: Disabled
+
+regions: 
+- # ====== Region: P6_PRZEGLAD_ODDZIALOW =======================
+  id: 108598286453925786645
+  identification: 
+    name: P6_PRZEGLAD_ODDZIALOW
+    title: Oddziały
+    type: Dashboard Cards
+
+  source: 
+    location: Local Database
+    type: SQL Query
+    sql-query: |
+      select DEPTNO,
+             DNAME,
+             (select count(*) from emp where deptno = dept.deptno) || ' pracowników ' as il_emp,
+             LOC,
+             '#317ac1' as background_color
+      from DEPT
+      
+
+  layout: 
+    sequence: 10
+    parent-region: No Parent
+    slot: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Blank with Attributes (No Grid)
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Region
+
+  advanced: 
+    static-id: P6_PRZEGLAD
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    appearance: 
+      display: Multiple (Report)
+
+    settings: 
+      title: '&LOC.'
+      body: '&DNAME.'
+      card-color: '&BACKGROUND_COLOR.'
+      icon: fa-card-holder
+      footer-text: '&IL_EMP.'
+
+    performance: 
+      lazy-loading: false
+
+    pagination: 
+      type: Page
+      entities-per-page: 15
+      show-total-count: false
+
+  columns: 
+  - # ====== Column: DEPTNO ======================================
+    id: 54315753574228685501
+    identification: 
+      name: DEPTNO
+
+    layout: 
+      sequence: 10
+
+    source: 
+      type: Database Column
+      database-column: DEPTNO
+      data-type: NUMBER
+      primary-key: false
+
+    accessibility: 
+      value-identifies-row: false
+
+  - # ====== Column: BACKGROUND_COLOR ============================
+    id: 54315753977869685505
+    identification: 
+      name: BACKGROUND_COLOR
+
+    layout: 
+      sequence: 50
+
+    source: 
+      type: Database Column
+      database-column: BACKGROUND_COLOR
+      data-type: VARCHAR2
+      primary-key: false
+
+    accessibility: 
+      value-identifies-row: false
+
+  - # ====== Column: DNAME =======================================
+    id: 54315754119938685507
+    identification: 
+      name: DNAME
+
+    layout: 
+      sequence: 70
+
+    source: 
+      type: Database Column
+      database-column: DNAME
+      data-type: VARCHAR2
+      primary-key: false
+
+    accessibility: 
+      value-identifies-row: false
+
+  - # ====== Column: IL_EMP ======================================
+    id: 54315754230471685508
+    identification: 
+      name: IL_EMP
+
+    layout: 
+      sequence: 80
+
+    source: 
+      type: Database Column
+      database-column: IL_EMP
+      data-type: VARCHAR2
+      primary-key: false
+
+    accessibility: 
+      value-identifies-row: false
+
+  - # ====== Column: LOC =========================================
+    id: 54315754360868685509
+    identification: 
+      name: LOC
+
+    layout: 
+      sequence: 90
+
+    source: 
+      type: Database Column
+      database-column: LOC
+      data-type: VARCHAR2
+      primary-key: false
+
+    accessibility: 
+      value-identifies-row: false
+
+  actions: 
+  - # ====== Action: Pracownicy ==================================
+    id: 54315754520590685511
+    identification: 
+      position: Action Button # 54951100566716445607
+      label: Pracownicy
+
+    layout: 
+      sequence: 10
+
+    link: 
+      type: Redirect to Page in this Application
+      target: 
+        url: 'f?p=&APP_ID.:7:&SESSION.::&DEBUG.::P7_DEPTNO:&DEPTNO.'
+        page: 7 # Szczegóły - oddział
+        values: 
+          p7_deptno: '&DEPTNO.'
+
+    appearance: 
+      display-type: Text
+      hot: true
+      show-as-disabled: false
+      css-classes: 
+      - PRZYCISK
+
