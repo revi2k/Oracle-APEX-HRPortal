@@ -18,4 +18,6 @@
 
 <b>Zmiana oddziału pracownika</b>
 ![image](https://github.com/user-attachments/assets/28341584-a66e-43fd-85a9-06bbfca33918)
-![image](https://github.com/user-attachments/assets/088604f4-2fa6-4faf-ab5d-ce02a089890f) ![image](https://github.com/user-attachments/assets/822c9779-94bb-4e20-84f5-e7b67059befe) ![image](https://github.com/user-attachments/assets/81d56822-f682-4085-a7e9-e43f5c8730f6)
+![image](https://github.com/user-attachments/assets/088604f4-2fa6-4faf-ab5d-ce02a089890f)
+![image](https://github.com/user-attachments/assets/822c9779-94bb-4e20-84f5-e7b67059befe)
+![image](https://github.com/user-attachments/assets/81d56822-f682-4085-a7e9-e43f5c8730f6)
