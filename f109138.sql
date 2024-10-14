@@ -33,17 +33,17 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
---   Date and Time:   11:49 Saturday October 12, 2024
+--   Date and Time:   08:50 Monday October 14, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                      8
---       Items:                   11
---       Validations:              1
---       Processes:                7
---       Regions:                  6
---       Buttons:                  4
---       Dynamic Actions:          2
+--     Pages:                      9
+--       Items:                   18
+--       Validations:              6
+--       Processes:                9
+--       Regions:                  7
+--       Buttons:                  6
+--       Dynamic Actions:          5
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -156,7 +156,7 @@ wwv_flow_imp_shared.create_list(
  p_id=>wwv_flow_imp.id(54263788518806069318)
 ,p_name=>'Navigation Menu'
 ,p_list_status=>'PUBLIC'
-,p_version_scn=>15583893952431
+,p_version_scn=>15584116731783
 );
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54264688493700069521)
@@ -197,6 +197,7 @@ wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54306900938650789596)
 ,p_list_item_display_sequence=>80
 ,p_list_item_link_text=>unistr('Wprowad\017A pracownika')
+,p_list_item_link_target=>'f?p=&APP_ID.:9:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_imp.id(54275872598808289406)
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
@@ -18448,16 +18449,17 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>10
 ,p_query_type=>'SQL'
 ,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'select EMPNO,',
-'       ENAME,',
-'       JOB,',
-'       MGR,',
-'       HIREDATE,',
-'       SAL,',
-'       COMM,',
-'       DEPTNO,',
-'       JOB || '' [''|| ENAME || '']'' AS INFO',
-'  from EMP'))
+'select EMP.EMPNO,',
+'       EMP.ENAME,',
+'       EMP.JOB,',
+'       EMP.MGR,',
+'       EMP.HIREDATE,',
+'       EMP.SAL,',
+'       EMP.COMM,',
+'       EMP.DEPTNO,',
+'       EMP_JOBS.JOB || '' [''|| EMP.ENAME || '']'' AS INFO',
+'  from EMP',
+'LEFT JOIN EMP_JOBS ON EMP.JOB = EMP_JOBS.ID'))
 ,p_lazy_loading=>false
 ,p_plug_source_type=>'NATIVE_JSTREE'
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
@@ -18540,8 +18542,16 @@ wwv_flow_imp_page.create_report_columns(
 ,p_include_in_export=>'Y'
 );
 wwv_flow_imp_page.create_report_columns(
- p_id=>wwv_flow_imp.id(54302744466866735515)
+ p_id=>wwv_flow_imp.id(67903180003200333350)
 ,p_query_column_id=>3
+,p_column_alias=>'JOB_ID'
+,p_column_display_sequence=>103
+,p_hidden_column=>'Y'
+,p_derived_column=>'N'
+);
+wwv_flow_imp_page.create_report_columns(
+ p_id=>wwv_flow_imp.id(54302744466866735515)
+,p_query_column_id=>4
 ,p_column_alias=>'JOB'
 ,p_column_display_sequence=>3
 ,p_column_heading=>'Funkcja'
@@ -18554,7 +18564,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302744811590735515)
-,p_query_column_id=>4
+,p_query_column_id=>5
 ,p_column_alias=>'MGR'
 ,p_column_display_sequence=>23
 ,p_default_sort_column_sequence=>1
@@ -18563,7 +18573,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302745234410735515)
-,p_query_column_id=>5
+,p_query_column_id=>6
 ,p_column_alias=>'HIREDATE'
 ,p_column_display_sequence=>33
 ,p_column_heading=>'Data zatrudnienia'
@@ -18576,7 +18586,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302745624040735515)
-,p_query_column_id=>6
+,p_query_column_id=>7
 ,p_column_alias=>'SAL'
 ,p_column_display_sequence=>53
 ,p_column_heading=>'Wynagrodzenie'
@@ -18589,7 +18599,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302746073177735516)
-,p_query_column_id=>7
+,p_query_column_id=>8
 ,p_column_alias=>'COMM'
 ,p_column_display_sequence=>63
 ,p_hidden_column=>'Y'
@@ -18597,7 +18607,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302746404264735516)
-,p_query_column_id=>8
+,p_query_column_id=>9
 ,p_column_alias=>'DEPTNO'
 ,p_column_display_sequence=>73
 ,p_hidden_column=>'Y'
@@ -18605,7 +18615,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302746877421735516)
-,p_query_column_id=>9
+,p_query_column_id=>10
 ,p_column_alias=>'DNAME'
 ,p_column_display_sequence=>13
 ,p_column_heading=>unistr('Oddzia\0142')
@@ -18618,7 +18628,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54302747207193735516)
-,p_query_column_id=>10
+,p_query_column_id=>11
 ,p_column_alias=>'LOC'
 ,p_column_display_sequence=>93
 ,p_column_heading=>unistr('Miejscowo\015B\0107')
@@ -18631,7 +18641,7 @@ wwv_flow_imp_page.create_report_columns(
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54289296463325232038)
-,p_query_column_id=>11
+,p_query_column_id=>12
 ,p_column_alias=>'STAZ'
 ,p_column_display_sequence=>43
 ,p_column_heading=>unistr('Sta\017C w latach')
@@ -19092,14 +19102,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'N'
 );
-wwv_flow_imp_page.create_page_item(
- p_id=>wwv_flow_imp.id(54315757388260685539)
-,p_name=>'P8_WALIDACJA'
-,p_item_sequence=>70
-,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
-,p_display_as=>'NATIVE_HIDDEN'
-,p_attribute_01=>'N'
-);
 wwv_flow_imp_page.create_page_validation(
  p_id=>wwv_flow_imp.id(54315757258996685538)
 ,p_validation_name=>'P8_WALIDACJA_TEN_SAM'
@@ -19127,7 +19129,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_event_id=>wwv_flow_imp.id(54315756575031685531)
 ,p_event_result=>'TRUE'
 ,p_action_sequence=>10
-,p_execute_on_page_init=>'Y'
+,p_execute_on_page_init=>'N'
 ,p_name=>'GET_PRACOWNIK'
 ,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
@@ -19188,6 +19190,405 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_process_success_message=>unistr('Poprawnie zmieniono oddzia\0142 pracownika &P8_PRACOWNIK_SELECT.')
 ,p_internal_uid=>54315757865960685544
+);
+end;
+/
+prompt --application/pages/page_00009
+begin
+wwv_flow_imp_page.create_page(
+ p_id=>9
+,p_name=>'Wprowadzanie pracownika'
+,p_alias=>'WPROWADZANIE-PRACOWNIKA'
+,p_step_title=>'Wprowadzanie pracownika'
+,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'.PRZYCISK {',
+'    border: 1px solid black; ',
+'    border-radius: 5px;  ',
+'    background-color: lightgreen;',
+'    display: flex;',
+'    padding: 2px;',
+'    justify-content: center;',
+'    align-items: center;',
+'    font-size: 2px;',
+'}',
+'',
+'.PRZYCISK:hover{',
+'    color: lightgreen;',
+'    background-color: black;',
+'}'))
+,p_page_template_options=>'#DEFAULT#'
+,p_protection_level=>'C'
+,p_page_component_map=>'16'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(67903179095057333340)
+,p_plug_name=>'Wprowadzanie pracownika'
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_imp.id(54264491392900069362)
+,p_plug_display_sequence=>10
+,p_query_type=>'TABLE'
+,p_query_table=>'EMP'
+,p_include_rowid_column=>false
+,p_is_editable=>false
+,p_plug_source_type=>'NATIVE_FORM'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(55151817641451987602)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_button_name=>'P9_CLEAR'
+,p_button_action=>'DEFINED_BY_DA'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(54264565071975069396)
+,p_button_image_alt=>unistr('Wyczy\015B\0107')
+,p_button_position=>'CLOSE'
+,p_button_execute_validations=>'N'
+,p_warn_on_unsaved_changes=>null
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(55151817569640987601)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_button_name=>'P9_DODAJ'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(54264565071975069396)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Dodaj'
+,p_button_position=>'HELP'
+,p_confirm_message=>unistr('Czy chcesz doda\0107 pracownika &P9_ENAME. do bazy?')
+,p_database_action=>'INSERT'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179284291333342)
+,p_name=>'P9_EMPNO'
+,p_source_data_type=>'NUMBER'
+,p_is_primary_key=>true
+,p_is_query_only=>true
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_source=>'EMPNO'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_protection_level=>'S'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179342283333343)
+,p_name=>'P9_ENAME'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>'Nazwisko'
+,p_source=>'ENAME'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_cMaxlength=>50
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+,p_attribute_06=>'UPPER'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179402140333344)
+,p_name=>'P9_JOB'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>'Stanowisko'
+,p_source=>'JOB'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select job, id from emp_jobs',
+'where id <> 1'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179555746333345)
+,p_name=>'P9_MGR'
+,p_source_data_type=>'NUMBER'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>unistr('Prze\0142o\017Cony')
+,p_source=>'MGR'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select ',
+'ename,',
+'empno from emp',
+'WHERE DEPTNO = :P9_DEPTNO'))
+,p_lov_display_null=>'YES'
+,p_lov_null_text=>'BRAK'
+,p_lov_cascade_parent_items=>'P9_DEPTNO'
+,p_ajax_items_to_submit=>'P9_DEPTNO'
+,p_ajax_optimize_refresh=>'Y'
+,p_cHeight=>1
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179626212333346)
+,p_name=>'P9_HIREDATE'
+,p_source_data_type=>'DATE'
+,p_item_sequence=>70
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>'Data zatrudnienia'
+,p_source=>'HIREDATE'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_DATE_PICKER_APEX'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'POPUP'
+,p_attribute_03=>'NONE'
+,p_attribute_06=>'NONE'
+,p_attribute_09=>'N'
+,p_attribute_11=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179700959333347)
+,p_name=>'P9_SAL'
+,p_source_data_type=>'NUMBER'
+,p_item_sequence=>80
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>'Wynagrodzenie'
+,p_format_mask=>'999G999G999G999G990D00'
+,p_source=>'SAL'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_NUMBER_FIELD'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_03=>'left'
+,p_attribute_04=>'decimal'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179818332333348)
+,p_name=>'P9_COMM'
+,p_source_data_type=>'NUMBER'
+,p_item_sequence=>90
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_source=>'COMM'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(67903179984393333349)
+,p_name=>'P9_DEPTNO'
+,p_source_data_type=>'NUMBER'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_prompt=>unistr('Oddzia\0142')
+,p_source=>'DEPTNO'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_SELECT_LIST'
+,p_lov=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select ',
+'dname|| ''-''||loc,',
+'deptno from dept'))
+,p_lov_display_null=>'YES'
+,p_cHeight=>1
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_lov_display_extra=>'NO'
+,p_attribute_01=>'NONE'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151818206771987608)
+,p_validation_name=>'P9_WALIDACJA_NAZWISKO'
+,p_validation_sequence=>10
+,p_validation=>'P9_ENAME'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Nazwisko nie mo\017Ce by\0107 puste!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55151817569640987601)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151818380674987609)
+,p_validation_name=>'P9_WALIDACJA_DATA'
+,p_validation_sequence=>20
+,p_validation=>'P9_HIREDATE'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Data zatrudnienia nie mo\017Ce by\0107 pusta!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55151817569640987601)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151818417688987610)
+,p_validation_name=>'P9_WALIDACJA_ZAROBKI'
+,p_validation_sequence=>30
+,p_validation=>'P9_SAL'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Zarobki nie mog\0105 by\0107 puste!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55151817569640987601)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151818859520987614)
+,p_validation_name=>'P9_WALIDACJA_ODDZIAL'
+,p_validation_sequence=>40
+,p_validation=>'P9_DEPTNO'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Oddzia\0142 nie mo\017Ce by\0107 pusty!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55151817569640987601)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151818950456987615)
+,p_validation_name=>'P9_WALIDACJA_STANOWISKO'
+,p_validation_sequence=>50
+,p_validation=>'P9_JOB'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Stanowisko nie mo\017Ce by\0107 puste!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55151817569640987601)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(55135883685003074673)
+,p_name=>'New'
+,p_event_sequence=>10
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P9_PRACOWNIK'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(55135884105592074673)
+,p_event_id=>wwv_flow_imp.id(55135883685003074673)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_name=>'GET_PRACOWNIK'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'select ename into :P9_PRACOWNIK_SELECT from emp where empno = :P9_PRACOWNIK;',
+'end;'))
+,p_attribute_02=>'P9_PRACOWNIK'
+,p_attribute_03=>'P9_PRACOWNIK_SELECT'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(55135884599702074674)
+,p_name=>'New_1'
+,p_event_sequence=>20
+,p_triggering_element_type=>'ITEM'
+,p_triggering_element=>'P9_ODDZIAL_D'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'change'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(55135885000184074674)
+,p_event_id=>wwv_flow_imp.id(55135884599702074674)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_name=>'GET_ODDZIAL'
+,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'select dname into :P9_ODDZIAL_SELECT from dept where deptno = :P9_ODDZIAL_D;',
+'end;'))
+,p_attribute_02=>'P9_ODDZIAL_D'
+,p_attribute_03=>'P9_ODDZIAL_SELECT'
+,p_attribute_04=>'N'
+,p_attribute_05=>'PLSQL'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(55151817735568987603)
+,p_name=>'New_2'
+,p_event_sequence=>30
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_imp.id(55151817641451987602)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'click'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(55151817865892987604)
+,p_event_id=>wwv_flow_imp.id(55151817735568987603)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P9_ENAME,P9_HIREDATE,P9_SAL'
+,p_attribute_01=>'STATIC_ASSIGNMENT'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(55151818541429987611)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'New'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'',
+'DODAJ_PRACOWNIKA(:P9_ENAME,:P9_JOB,:P9_MGR,:P9_HIREDATE,:P9_SAL,:P9_DEPTNO);',
+'',
+'end;'))
+,p_process_clob_language=>'PLSQL'
+,p_process_error_message=>unistr('Wyst\0105pi\0142 b\0142\0105d podczas dodawania pracownika do bazy.')
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>'Poprawnie dodano pracownika &P9_ENAME. do bazy.'
+,p_internal_uid=>55151818541429987611
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(67903179172284333341)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_region_id=>wwv_flow_imp.id(67903179095057333340)
+,p_process_type=>'NATIVE_FORM_INIT'
+,p_process_name=>'Initialize form Wprowadzanie pracownika'
+,p_internal_uid=>67903179172284333341
 );
 end;
 /
