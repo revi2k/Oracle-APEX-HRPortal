@@ -19,11 +19,14 @@
 <b>Zmiana oddziału pracownika</b>
 ![image](https://github.com/user-attachments/assets/28341584-a66e-43fd-85a9-06bbfca33918)
 
+
 <b>Wprowadzanie pracowników do bazy</b>
 ![image](https://github.com/user-attachments/assets/60db82d7-ce37-42b1-a6c9-877bd186e148)
 
+
 <b>Wprowadzanie oddziałow do bazy (funkcja) form</b>
 ![image](https://github.com/user-attachments/assets/c7c990b5-8c1c-4f73-bff5-f430dfd0aecf)
+
 
 <b>Zarządzanie oddziałami za pomocą interactive grid</b>
 ![image](https://github.com/user-attachments/assets/b23ba1f3-8357-4589-8c2c-266ab9f28158)
