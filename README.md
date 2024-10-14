@@ -21,3 +21,6 @@
 ![image](https://github.com/user-attachments/assets/088604f4-2fa6-4faf-ab5d-ce02a089890f)
 ![image](https://github.com/user-attachments/assets/822c9779-94bb-4e20-84f5-e7b67059befe)
 ![image](https://github.com/user-attachments/assets/81d56822-f682-4085-a7e9-e43f5c8730f6)
+
+<b>Wprowadzanie pracowników do bazy</b>
+![image](https://github.com/user-attachments/assets/60db82d7-ce37-42b1-a6c9-877bd186e148)
