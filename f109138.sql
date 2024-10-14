@@ -33,14 +33,14 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
---   Date and Time:   12:55 Monday October 14, 2024
+--   Date and Time:   15:56 Monday October 14, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                     14
 --       Items:                   39
 --       Validations:             14
---       Processes:               16
+--       Processes:               17
 --       Regions:                 12
 --       Buttons:                  9
 --       Dynamic Actions:          6
@@ -20352,6 +20352,23 @@ wwv_flow_imp_page.create_page_validation(
 ,p_when_button_pressed=>wwv_flow_imp.id(55288123451748590390)
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(54315757974872685545)
+,p_name=>'New'
+,p_event_sequence=>10
+,p_bind_type=>'bind'
+,p_bind_event_type=>'ready'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(54315758055741685546)
+,p_event_id=>wwv_flow_imp.id(54315757974872685545)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P12_EMP'
+);
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(55288124650350590392)
 ,p_process_sequence=>10
@@ -20572,16 +20589,6 @@ wwv_flow_imp_page.create_page(
 ,p_page_mode=>'MODAL'
 ,p_step_title=>unistr('Szczeg\00F3\0142y - dokumenty')
 ,p_autocomplete_on_off=>'OFF'
-,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'#P14_INFO{',
-'font-weight:bold;',
-'border:none;',
-'font-size: 16px;',
-'}',
-'',
-'.ui-li-aside {',
-'  color: white;',
-'}'))
 ,p_step_template=>wwv_flow_imp.id(54263788807421069318)
 ,p_page_template_options=>'#DEFAULT#:js-dialog-class-t-Drawer--pullOutStart:js-dialog-class-t-Drawer--lg'
 ,p_dialog_height=>'900'
@@ -20591,8 +20598,8 @@ wwv_flow_imp_page.create_page(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(109607223898640288894)
-,p_plug_name=>unistr('Szczeg\00F3\0142y - dokumenty')
-,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--hideHeader:t-Region--scrollBody'
+,p_plug_name=>'Dokumenty pracownika &P14_ENAME.'
+,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--scrollBody'
 ,p_escape_on_http_output=>'Y'
 ,p_plug_template=>wwv_flow_imp.id(54264491392900069362)
 ,p_plug_display_sequence=>20
@@ -20601,7 +20608,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_source_type=>'NATIVE_JQM_LIST_VIEW'
 ,p_ajax_items_to_submit=>'P14_EMPNO'
 ,p_plug_query_num_rows=>15
-,p_plug_query_no_data_found=>unistr('Brak za\0142\0105cznik\00F3w dla pracownika.')
+,p_plug_query_no_data_found=>unistr('Brak za\0142\0105cznik\00F3w dla pracownika &P14_ENAME.')
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
   'counter_column', 'KOMENTARZ',
   'image_blob_column', 'DOC',
@@ -20612,20 +20619,11 @@ wwv_flow_imp_page.create_page_plug(
   'text_column', 'DOC_NAME')).to_clob
 );
 wwv_flow_imp_page.create_page_item(
- p_id=>wwv_flow_imp.id(55307820668360869505)
-,p_name=>'P14_INFO'
-,p_item_sequence=>10
-,p_post_element_text=>unistr('Kliknij na za\0142\0105cznik aby pobra\0107.')
-,p_display_as=>'NATIVE_TEXT_FIELD'
-,p_cSize=>30
-,p_field_template=>wwv_flow_imp.id(54264562519572069395)
-,p_item_template_options=>'#DEFAULT#'
-,p_attribute_01=>'N'
-,p_attribute_02=>'Y'
-,p_attribute_03=>'N'
-,p_attribute_04=>'TEXT'
-,p_attribute_05=>'BOTH'
-,p_attribute_06=>'UPPER'
+ p_id=>wwv_flow_imp.id(54315758170725685547)
+,p_name=>'P14_ENAME'
+,p_item_sequence=>40
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(55307820953623869508)
@@ -20658,28 +20656,15 @@ wwv_flow_imp_page.create_page_item(
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
 );
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(55307820799615869506)
-,p_name=>'New'
-,p_event_sequence=>10
-,p_bind_type=>'bind'
-,p_bind_event_type=>'ready'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(55307820805251869507)
-,p_event_id=>wwv_flow_imp.id(55307820799615869506)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'Y'
-,p_action=>'NATIVE_SET_VALUE'
-,p_affected_elements_type=>'ITEM'
-,p_affected_elements=>'P14_INFO'
-,p_attribute_01=>'SQL_STATEMENT'
-,p_attribute_03=>'select ''Dokumenty pracownika: '' || ename from emp where empno = :P14_EMPNO;'
-,p_attribute_07=>'P14_EMPNO'
-,p_attribute_08=>'Y'
-,p_attribute_09=>'N'
-,p_wait_for_result=>'Y'
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(54315758357586685549)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'New'
+,p_process_sql_clob=>'select ename into :P14_ENAME from emp where empno = :P14_EMPNO;'
+,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>54315758357586685549
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(55304488821689553579)
