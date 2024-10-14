@@ -32,3 +32,12 @@
 <b>Zarządzanie oddziałami za pomocą interactive grid</b>
 
 ![image](https://github.com/user-attachments/assets/b23ba1f3-8357-4589-8c2c-266ab9f28158)
+
+
+<b>Dodanie funkcjonalności obsługi załączników (dodawanie/przechowywanie/pobieranie)</b>
+![image](https://github.com/user-attachments/assets/1e1641db-61a3-4faf-af66-34ffc7d0a8ae)
+![image](https://github.com/user-attachments/assets/59ccdbcc-fe59-4e15-952c-7c46e61402ec)
+![image](https://github.com/user-attachments/assets/5927423d-39bb-4354-b0f6-ad855ddd6c19)
+
+
+
