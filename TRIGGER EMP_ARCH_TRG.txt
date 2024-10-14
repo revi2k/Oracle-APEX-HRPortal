@@ -1,0 +1,29 @@
+create or replace trigger "EMP_ARCH_TRG"
+after insert or update or delete on "EMP"
+for each row
+declare
+l_akcja char(1);
+begin
+
+        if inserting then
+          l_akcja:='I';
+        elsif deleting then
+          l_akcja := 'D';
+        else
+          l_akcja:='U';
+        end if;
+    
+    if l_akcja in ('I','U') then
+        insert into EMP_ARCH
+        (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO, DATA_ZMIANY, ZMIENIAJACY, AKCJA)
+        VALUES
+        (:NEW.EMPNO, :NEW.ENAME, :NEW.JOB, :NEW.MGR, :NEW.HIREDATE, :NEW.SAL, :NEW.COMM, :NEW.DEPTNO, sysdate, nvl(v('APP_USER'),user), l_akcja);
+    else
+        insert into EMP_ARCH
+        (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO, DATA_ZMIANY, ZMIENIAJACY, AKCJA)
+        VALUES
+        (:OLD.EMPNO, :OLD.ENAME, :OLD.JOB, :OLD.MGR, :OLD.HIREDATE, :OLD.SAL, :OLD.COMM, :OLD.DEPTNO, sysdate, nvl(v('APP_USER'),user), l_akcja);
+    end if;
+
+end;
+/
