@@ -1,0 +1,15 @@
+create or replace function "DODAJ_ODDZIAL" (p_specjalizcaja VARCHAR2, p_lokalizacja VARCHAR2)
+return varchar2
+as
+begin
+    begin
+        insert into DEPT
+        (DNAME, LOC)
+        VALUES
+        (p_specjalizcaja, p_lokalizacja);
+        return 'Sukces';
+    exception when others then
+        return  SQLERRM;
+    end;
+end "DODAJ_ODDZIAL";
+/
