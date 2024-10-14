@@ -33,15 +33,15 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
---   Date and Time:   15:56 Monday October 14, 2024
+--   Date and Time:   17:27 Monday October 14, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                     14
---       Items:                   39
+--       Items:                   40
 --       Validations:             14
---       Processes:               17
---       Regions:                 12
+--       Processes:               18
+--       Regions:                 13
 --       Buttons:                  9
 --       Dynamic Actions:          6
 --     Shared Components:
@@ -18789,7 +18789,6 @@ wwv_flow_imp_page.create_page(
 '.PRZYCISK {',
 '    border: 1px solid black; ',
 '    border-radius: 5px;  ',
-'    background-color: lightgreen;',
 '    display: flex;',
 '    padding: 2px;',
 '    justify-content: center;',
@@ -18800,10 +18799,79 @@ wwv_flow_imp_page.create_page(
 '.PRZYCISK:hover{',
 '    color: lightgreen;',
 '    background-color: black;',
+'}',
+'',
+'',
+'.dc-card .dc-title {',
+'    font-size: 16px;',
+'    font-weight:bold;',
+'}',
+'',
+'.dc-card .dc-body {',
+'    font-size: 12px;',
+'',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'27'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(55397658256173031110)
+,p_plug_name=>'P6_PRZEGLAD_ODDZIALOW'
+,p_title=>unistr('W tych miastach jeste\015Bmy')
+,p_region_template_options=>'#DEFAULT#'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(54264426138394069336)
+,p_plug_display_sequence=>20
+,p_location=>null
+,p_lazy_loading=>true
+,p_plug_source_type=>'NATIVE_MAP_REGION'
+,p_plug_header=>'W tych miastach funkcjonujemy'
+,p_landmark_type=>'region'
+);
+wwv_flow_imp_page.create_map_region(
+ p_id=>wwv_flow_imp.id(55397658916687031117)
+,p_region_id=>wwv_flow_imp.id(55397658256173031110)
+,p_height=>640
+,p_navigation_bar_type=>'FULL'
+,p_navigation_bar_position=>'END'
+,p_init_position_zoom_type=>'QUERY_RESULTS'
+,p_init_position_from_browser=>true
+,p_layer_messages_position=>'BELOW'
+,p_show_legend=>false
+,p_features=>'RECTANGLE_ZOOM:SCALE_BAR:BROWSER_LOCATION'
+);
+wwv_flow_imp_page.create_map_region_layer(
+ p_id=>wwv_flow_imp.id(55397659015809031118)
+,p_map_region_id=>wwv_flow_imp.id(55397658916687031117)
+,p_name=>'Lokalizacje'
+,p_label=>unistr('Tu jeste\015Bmy')
+,p_layer_type=>'POINT'
+,p_display_sequence=>10
+,p_location=>'LOCAL'
+,p_query_type=>'SQL'
+,p_layer_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select ',
+'       DEPT.LOC,',
+'LISTAGG(DEPT.DNAME,'','') AS NAMES,',
+'       MIASTA.SZER,',
+'       MIASTA.DLUG',
+'from DEPT',
+'left join MIASTA on DEPT.LOC = MIASTA.LOC',
+'GROUP BY DEPT.LOC, MIASTA.SZER, MIASTA.DLUG',
+''))
+,p_has_spatial_index=>false
+,p_geometry_column_data_type=>'LONLAT_COLUMNS'
+,p_longitude_column=>'DLUG'
+,p_latitude_column=>'SZER'
+,p_point_display_type=>'SVG'
+,p_point_svg_shape=>'Default'
+,p_feature_clustering=>false
+,p_tooltip_adv_formatting=>false
+,p_info_window_adv_formatting=>false
+,p_info_window_title_column=>'LOC'
+,p_info_window_body_column=>'NAMES'
+,p_display_in_legend=>false
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(108598286453925786645)
@@ -18827,7 +18895,7 @@ unistr('       (select count(*) from emp where deptno = dept.deptno) || '' praco
 ,p_plug_source_type=>'TMPL_THEME_42$COM.RODRIGOMESQUITA.DASHBOARD_CARDS'
 ,p_plug_query_num_rows=>50
 ,p_plug_query_num_rows_type=>'SET'
-,p_show_total_row_count=>true
+,p_show_total_row_count=>false
 ,p_landmark_type=>'region'
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
   'CARD_BODY', '&DNAME.',
@@ -18914,7 +18982,7 @@ wwv_flow_imp_page.create_page(
 );
 wwv_flow_imp_page.create_report_region(
  p_id=>wwv_flow_imp.id(108849928110868897907)
-,p_name=>unistr('Szczeg\00F3\0142y - oddzia\0142')
+,p_name=>unistr('Szczeg\00F3\0142y - oddzia\0142u')
 ,p_template=>wwv_flow_imp.id(54264491392900069362)
 ,p_display_sequence=>10
 ,p_region_template_options=>'#DEFAULT#:t-Region--noPadding:t-Region--hideHeader:t-Region--scrollBody'
@@ -18943,7 +19011,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315754624451685512)
 ,p_query_column_id=>1
 ,p_column_alias=>'EMPNO'
-,p_column_display_sequence=>103
+,p_column_display_sequence=>53
 ,p_column_heading=>'Numer ewidencyjny'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -18955,7 +19023,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315754713731685513)
 ,p_query_column_id=>2
 ,p_column_alias=>'ENAME'
-,p_column_display_sequence=>113
+,p_column_display_sequence=>63
 ,p_column_heading=>'Nazwisko'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -18967,7 +19035,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315754854832685514)
 ,p_query_column_id=>3
 ,p_column_alias=>'JOB'
-,p_column_display_sequence=>123
+,p_column_display_sequence=>73
 ,p_column_heading=>'Stanowisko'
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -18979,7 +19047,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315754965679685515)
 ,p_query_column_id=>4
 ,p_column_alias=>'MGR'
-,p_column_display_sequence=>133
+,p_column_display_sequence=>83
 ,p_column_heading=>unistr('Prze\0142o\017Cony')
 ,p_use_as_row_header=>'N'
 ,p_column_alignment=>'CENTER'
@@ -18991,7 +19059,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315755084946685516)
 ,p_query_column_id=>5
 ,p_column_alias=>'HIREDATE'
-,p_column_display_sequence=>143
+,p_column_display_sequence=>93
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -18999,7 +19067,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315755156552685517)
 ,p_query_column_id=>6
 ,p_column_alias=>'SAL'
-,p_column_display_sequence=>153
+,p_column_display_sequence=>103
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -19007,7 +19075,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315755260208685518)
 ,p_query_column_id=>7
 ,p_column_alias=>'COMM'
-,p_column_display_sequence=>163
+,p_column_display_sequence=>113
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -19015,7 +19083,7 @@ wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54547190101178162590)
 ,p_query_column_id=>8
 ,p_column_alias=>'DEPTNO'
-,p_column_display_sequence=>73
+,p_column_display_sequence=>33
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -19024,24 +19092,32 @@ wwv_flow_imp_page.create_report_columns(
 ,p_query_column_id=>9
 ,p_column_alias=>'DNAME'
 ,p_column_display_sequence=>13
+,p_column_heading=>'Specjalizacja'
+,p_use_as_row_header=>'N'
+,p_column_alignment=>'CENTER'
 ,p_default_sort_column_sequence=>1
-,p_hidden_column=>'Y'
+,p_disable_sort_column=>'N'
 ,p_derived_column=>'N'
+,p_include_in_export=>'Y'
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54547190909731162591)
 ,p_query_column_id=>10
 ,p_column_alias=>'LOC'
-,p_column_display_sequence=>93
+,p_column_display_sequence=>23
+,p_column_heading=>'Lokalizacja'
+,p_use_as_row_header=>'N'
+,p_column_alignment=>'CENTER'
 ,p_default_sort_column_sequence=>1
-,p_hidden_column=>'Y'
+,p_disable_sort_column=>'N'
 ,p_derived_column=>'N'
+,p_include_in_export=>'Y'
 );
 wwv_flow_imp_page.create_report_columns(
  p_id=>wwv_flow_imp.id(54315755373084685519)
 ,p_query_column_id=>11
 ,p_column_alias=>'STAZ'
-,p_column_display_sequence=>173
+,p_column_display_sequence=>123
 ,p_hidden_column=>'Y'
 ,p_derived_column=>'N'
 );
@@ -19057,11 +19133,28 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_position=>'CLOSE'
 );
 wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(55397659131481031119)
+,p_name=>'P7_DEPT_INFO'
+,p_item_sequence=>30
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(108836488556122394629)
 ,p_name=>'P7_DEPTNO'
 ,p_item_sequence=>20
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(55397659275308031120)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'P7_DEPT_INFO_GET'
+,p_process_sql_clob=>'select dname || '' ['' || loc || '']'' into :P7_DEPT_INFO from dept where deptno = :P7_DEPTNO;'
+,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>55397659275308031120
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(54547192696199162592)
@@ -20427,10 +20520,11 @@ wwv_flow_imp_page.create_report_region(
 ,p_query_row_template=>wwv_flow_imp.id(54264529702185069379)
 ,p_query_num_rows=>50
 ,p_query_options=>'DERIVED_REPORT_COLUMNS'
-,p_query_no_data_found=>'no data found'
+,p_query_no_data_found=>unistr('Nie znaleziono pracownik\00F3w w danym oddziale.')
 ,p_query_num_rows_type=>'NEXT_PREVIOUS_LINKS'
 ,p_query_row_count_max=>500
 ,p_pagination_display_position=>'BOTTOM_RIGHT'
+,p_csv_output=>'N'
 ,p_prn_output=>'N'
 ,p_prn_format=>'PDF'
 ,p_sort_null=>'L'
