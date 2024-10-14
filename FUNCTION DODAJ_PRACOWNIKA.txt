@@ -1,0 +1,15 @@
+create or replace function "DODAJ_PRACOWNIKA" (p_nazwisko VARCHAR2, p_stanowisko number, p_przelozony number, p_data_zatrudnienia date, p_wynagrodzenie number, p_oddzial number)
+return varchar2
+as
+begin
+    begin
+        insert into EMP
+        (ENAME, JOB, MGR, HIREDATE, SAL, DEPTNO)
+        VALUES
+        (p_nazwisko, p_stanowisko, p_przelozony, p_data_zatrudnienia,p_wynagrodzenie,p_oddzial);
+        return 'Sukces';
+    exception when others then
+        return  SQLERRM;
+    end;
+end "DODAJ_PRACOWNIKA";
+/
