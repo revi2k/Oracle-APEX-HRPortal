@@ -33,7 +33,7 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
---   Date and Time:   10:22 Monday October 14, 2024
+--   Date and Time:   11:03 Monday October 14, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -19066,7 +19066,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
 ,p_prompt=>unistr('Aktualny oddzia\0142')
 ,p_display_as=>'NATIVE_SELECT_LIST'
-,p_lov=>'select dname, deptno from dept'
+,p_lov=>'select dname||''-''||loc, deptno  from dept'
 ,p_cHeight=>1
 ,p_colspan=>2
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
@@ -19100,7 +19100,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_plug_id=>wwv_flow_imp.id(54315756033303685526)
 ,p_prompt=>unistr('Oddzia\0142 docelowy')
 ,p_display_as=>'NATIVE_SELECT_LIST'
-,p_lov=>'select dname, deptno from dept'
+,p_lov=>'select dname||''-''||loc, deptno  from dept'
 ,p_cHeight=>1
 ,p_begin_on_new_line=>'N'
 ,p_colspan=>2
@@ -19158,6 +19158,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'begin',
 'select ename into :P8_PRACOWNIK_SELECT from emp where empno = :P8_PRACOWNIK;',
+'exception when others then null;',
 'end;'))
 ,p_attribute_02=>'P8_PRACOWNIK'
 ,p_attribute_03=>'P8_PRACOWNIK_SELECT'
