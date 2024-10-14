@@ -33,17 +33,17 @@ prompt APPLICATION 109138 - HR - Portal
 -- Application Export:
 --   Application:     109138
 --   Name:            HR - Portal
---   Date and Time:   08:50 Monday October 14, 2024
+--   Date and Time:   10:22 Monday October 14, 2024
 --   Exported By:     JAKUB.SOBCZAK@ONET.PL
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                      9
---       Items:                   18
---       Validations:              6
---       Processes:                9
---       Regions:                  7
---       Buttons:                  6
---       Dynamic Actions:          5
+--     Pages:                     11
+--       Items:                   24
+--       Validations:             12
+--       Processes:               12
+--       Regions:                  9
+--       Buttons:                  8
+--       Dynamic Actions:          4
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -156,7 +156,7 @@ wwv_flow_imp_shared.create_list(
  p_id=>wwv_flow_imp.id(54263788518806069318)
 ,p_name=>'Navigation Menu'
 ,p_list_status=>'PUBLIC'
-,p_version_scn=>15584116731783
+,p_version_scn=>15584137524605
 );
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54264688493700069521)
@@ -219,14 +219,16 @@ wwv_flow_imp_shared.create_list_item(
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54306896050534788081)
 ,p_list_item_display_sequence=>70
-,p_list_item_link_text=>unistr('Wprowad\017A oddzia\0142')
+,p_list_item_link_text=>unistr('Wprowad\017A oddzia\0142 (funkcja)')
+,p_list_item_link_target=>'f?p=&APP_ID.:10:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_imp.id(54276032175323988600)
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
 wwv_flow_imp_shared.create_list_item(
  p_id=>wwv_flow_imp.id(54307349177648489997)
 ,p_list_item_display_sequence=>100
-,p_list_item_link_text=>unistr('Edytuj oddzia\0142')
+,p_list_item_link_text=>unistr('Edytuj oddzia\0142y (i-grid)')
+,p_list_item_link_target=>'f?p=&APP_ID.:11:&SESSION.::&DEBUG.::::'
 ,p_parent_list_item_id=>wwv_flow_imp.id(54276032175323988600)
 ,p_list_item_current_type=>'TARGET_PAGE'
 );
@@ -18421,9 +18423,31 @@ wwv_flow_imp_page.create_page(
 ,p_alias=>'HOME'
 ,p_step_title=>'HR - Portal'
 ,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'#P1_INFO{',
+'    border: none;',
+'    font-size: 24px;',
+'    text-align: center;',
+'}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'13'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(55151819116676987617)
+,p_name=>'P1_INFO'
+,p_item_sequence=>10
+,p_source=>unistr('Strona g\0142\00F3wna aplikacji HR-Portal.')
+,p_source_type=>'STATIC'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#:t-Form-fieldContainer--boldDisplay'
+,p_attribute_01=>'N'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
 );
 end;
 /
@@ -18730,14 +18754,13 @@ unistr('       (select count(*) from emp where deptno = dept.deptno) || '' praco
 ,p_template_component_type=>'REPORT'
 ,p_lazy_loading=>false
 ,p_plug_source_type=>'TMPL_THEME_42$COM.RODRIGOMESQUITA.DASHBOARD_CARDS'
-,p_plug_query_num_rows=>15
+,p_plug_query_num_rows=>50
 ,p_plug_query_num_rows_type=>'SET'
-,p_show_total_row_count=>false
+,p_show_total_row_count=>true
 ,p_landmark_type=>'region'
 ,p_attributes=>wwv_flow_t_plugin_attributes(wwv_flow_t_varchar2(
   'CARD_BODY', '&DNAME.',
   'CARD_COLOR', '&BACKGROUND_COLOR.',
-  'CARD_ICON', 'fa-card-holder',
   'FOOTER_TEXT', '&IL_EMP.',
   'TITLE', '&LOC.')).to_clob
 );
@@ -19202,20 +19225,9 @@ wwv_flow_imp_page.create_page(
 ,p_step_title=>'Wprowadzanie pracownika'
 ,p_autocomplete_on_off=>'OFF'
 ,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'.PRZYCISK {',
-'    border: 1px solid black; ',
-'    border-radius: 5px;  ',
-'    background-color: lightgreen;',
-'    display: flex;',
-'    padding: 2px;',
-'    justify-content: center;',
-'    align-items: center;',
-'    font-size: 2px;',
-'}',
-'',
-'.PRZYCISK:hover{',
-'    color: lightgreen;',
-'    background-color: black;',
+'#WPROWADZANIE',
+'{',
+'    background-color: lightslategray;',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_protection_level=>'C'
@@ -19224,9 +19236,12 @@ wwv_flow_imp_page.create_page(
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(67903179095057333340)
 ,p_plug_name=>'Wprowadzanie pracownika'
+,p_region_name=>'WPROWADZANIE'
 ,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
 ,p_plug_template=>wwv_flow_imp.id(54264491392900069362)
 ,p_plug_display_sequence=>10
+,p_plug_grid_column_span=>4
+,p_plug_display_column=>5
 ,p_query_type=>'TABLE'
 ,p_query_table=>'EMP'
 ,p_include_rowid_column=>false
@@ -19261,6 +19276,14 @@ wwv_flow_imp_page.create_page_button(
 ,p_database_action=>'INSERT'
 );
 wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(55151819240280987618)
+,p_name=>'P9_WALIDACJA'
+,p_item_sequence=>100
+,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(67903179284291333342)
 ,p_name=>'P9_EMPNO'
 ,p_source_data_type=>'NUMBER'
@@ -19290,6 +19313,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_cSize=>30
 ,p_cMaxlength=>50
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_icon_css_classes=>'fa-user'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_attribute_01=>'N'
@@ -19315,7 +19339,9 @@ wwv_flow_imp_page.create_page_item(
 ,p_lov_display_null=>'YES'
 ,p_cHeight=>1
 ,p_begin_on_new_line=>'N'
+,p_begin_on_new_field=>'N'
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_icon_css_classes=>'fa-network-triangle'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_lov_display_extra=>'NO'
@@ -19344,6 +19370,7 @@ wwv_flow_imp_page.create_page_item(
 ,p_ajax_optimize_refresh=>'Y'
 ,p_cHeight=>1
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_icon_css_classes=>'fa-user-arrow-up'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_lov_display_extra=>'NO'
@@ -19361,7 +19388,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_source_type=>'REGION_SOURCE_COLUMN'
 ,p_display_as=>'NATIVE_DATE_PICKER_APEX'
 ,p_cSize=>30
-,p_begin_on_new_line=>'N'
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
@@ -19380,13 +19406,12 @@ wwv_flow_imp_page.create_page_item(
 ,p_item_plug_id=>wwv_flow_imp.id(67903179095057333340)
 ,p_item_source_plug_id=>wwv_flow_imp.id(67903179095057333340)
 ,p_prompt=>'Wynagrodzenie'
-,p_format_mask=>'999G999G999G999G990D00'
 ,p_source=>'SAL'
 ,p_source_type=>'REGION_SOURCE_COLUMN'
 ,p_display_as=>'NATIVE_NUMBER_FIELD'
 ,p_cSize=>30
-,p_begin_on_new_line=>'N'
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_icon_css_classes=>'fa-money'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_attribute_03=>'left'
@@ -19423,7 +19448,9 @@ wwv_flow_imp_page.create_page_item(
 ,p_lov_display_null=>'YES'
 ,p_cHeight=>1
 ,p_begin_on_new_line=>'N'
+,p_begin_on_new_field=>'N'
 ,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_icon_css_classes=>'fa-city'
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
 ,p_lov_display_extra=>'NO'
@@ -19485,62 +19512,6 @@ wwv_flow_imp_page.create_page_validation(
 ,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
 );
 wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(55135883685003074673)
-,p_name=>'New'
-,p_event_sequence=>10
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P9_PRACOWNIK'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(55135884105592074673)
-,p_event_id=>wwv_flow_imp.id(55135883685003074673)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'N'
-,p_name=>'GET_PRACOWNIK'
-,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
-,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'begin',
-'select ename into :P9_PRACOWNIK_SELECT from emp where empno = :P9_PRACOWNIK;',
-'end;'))
-,p_attribute_02=>'P9_PRACOWNIK'
-,p_attribute_03=>'P9_PRACOWNIK_SELECT'
-,p_attribute_04=>'N'
-,p_attribute_05=>'PLSQL'
-,p_wait_for_result=>'Y'
-);
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(55135884599702074674)
-,p_name=>'New_1'
-,p_event_sequence=>20
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P9_ODDZIAL_D'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(55135885000184074674)
-,p_event_id=>wwv_flow_imp.id(55135884599702074674)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'Y'
-,p_name=>'GET_ODDZIAL'
-,p_action=>'NATIVE_EXECUTE_PLSQL_CODE'
-,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'begin',
-'select dname into :P9_ODDZIAL_SELECT from dept where deptno = :P9_ODDZIAL_D;',
-'end;'))
-,p_attribute_02=>'P9_ODDZIAL_D'
-,p_attribute_03=>'P9_ODDZIAL_SELECT'
-,p_attribute_04=>'N'
-,p_attribute_05=>'PLSQL'
-,p_wait_for_result=>'Y'
-);
-wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(55151817735568987603)
 ,p_name=>'New_2'
 ,p_event_sequence=>30
@@ -19572,13 +19543,13 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'begin',
 '',
-'DODAJ_PRACOWNIKA(:P9_ENAME,:P9_JOB,:P9_MGR,:P9_HIREDATE,:P9_SAL,:P9_DEPTNO);',
+':P9_WALIDACJA := DODAJ_PRACOWNIKA(:P9_ENAME,:P9_JOB,:P9_MGR,:P9_HIREDATE,:P9_SAL,:P9_DEPTNO);',
 '',
 'end;'))
 ,p_process_clob_language=>'PLSQL'
-,p_process_error_message=>unistr('Wyst\0105pi\0142 b\0142\0105d podczas dodawania pracownika do bazy.')
+,p_process_error_message=>unistr('B\0142\0105d: &P9_WALIDACJA.')
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_process_success_message=>'Poprawnie dodano pracownika &P9_ENAME. do bazy.'
+,p_process_success_message=>'&P9_WALIDACJA. poprawnie dodano pracownika &P9_ENAME. do bazy.'
 ,p_internal_uid=>55151818541429987611
 );
 wwv_flow_imp_page.create_page_process(
@@ -19589,6 +19560,498 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_type=>'NATIVE_FORM_INIT'
 ,p_process_name=>'Initialize form Wprowadzanie pracownika'
 ,p_internal_uid=>67903179172284333341
+);
+end;
+/
+prompt --application/pages/page_00010
+begin
+wwv_flow_imp_page.create_page(
+ p_id=>10
+,p_name=>unistr('Wprowadzanie oddzia\0142u')
+,p_alias=>unistr('WPROWADZANIE-ODDZIA\0141U')
+,p_step_title=>unistr('Wprowadzanie oddzia\0142u')
+,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'#WPROWADZANIE',
+'{',
+'    background-color: lightslategray;',
+'}'))
+,p_page_template_options=>'#DEFAULT#'
+,p_protection_level=>'C'
+,p_page_component_map=>'16'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(123117495036072906894)
+,p_plug_name=>unistr('Wprowadzanie oddzia\0142u')
+,p_region_name=>'WPROWADZANIE'
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_imp.id(54264491392900069362)
+,p_plug_display_sequence=>10
+,p_plug_grid_column_span=>4
+,p_plug_display_column=>5
+,p_query_type=>'TABLE'
+,p_query_table=>'DEPT'
+,p_include_rowid_column=>false
+,p_is_editable=>false
+,p_plug_source_type=>'NATIVE_FORM'
+,p_ai_enabled=>false
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(55214316514473573559)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_button_name=>'P10_CLEAR'
+,p_button_action=>'DEFINED_BY_DA'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(54264565071975069396)
+,p_button_image_alt=>unistr('Wyczy\015B\0107')
+,p_button_position=>'CLOSE'
+,p_button_execute_validations=>'N'
+,p_warn_on_unsaved_changes=>null
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(55214316940760573560)
+,p_button_sequence=>20
+,p_button_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_button_name=>'P10_DODAJ'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(54264565071975069396)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Dodaj'
+,p_button_position=>'HELP'
+,p_confirm_message=>unistr('Czy chcesz doda\0107 oddzia\0142 &P10_DNAME.?')
+,p_database_action=>'INSERT'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(55151819364695987619)
+,p_name=>'P10_DNAME'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_item_source_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_prompt=>'Specjalizacja'
+,p_source=>'DNAME'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_cMaxlength=>50
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+,p_attribute_06=>'UPPER'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(55151819407311987620)
+,p_name=>'P10_LOC'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_item_source_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_prompt=>'Lokalizacja'
+,p_source=>'LOC'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_cMaxlength=>50
+,p_field_template=>wwv_flow_imp.id(54264562519572069395)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+,p_attribute_06=>'UPPER'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(110366136571726561178)
+,p_name=>'P10_WALIDACJA'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'N'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(123117497315838906909)
+,p_name=>'P10_DEPTNO'
+,p_source_data_type=>'NUMBER'
+,p_is_primary_key=>true
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_item_source_plug_id=>wwv_flow_imp.id(123117495036072906894)
+,p_source=>'DEPTNO'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_protection_level=>'S'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55214324094206573570)
+,p_validation_name=>'P10_WALIDACJA_SPECJALIZACJA'
+,p_validation_sequence=>30
+,p_validation=>'P10_DNAME'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Specjalizacja nie mo\017Ce by\0107 pusta!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55214316940760573560)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55214324882909573570)
+,p_validation_name=>'P10_WALIDACJA_LOKALIZACJA'
+,p_validation_sequence=>50
+,p_validation=>'P10_LOC'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Lokalizacja nie mo\017Ce by\0107 pusta!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55214316940760573560)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151819722562987623)
+,p_validation_name=>'P10_WALIDACJA_DUBEL'
+,p_validation_sequence=>60
+,p_validation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select * from DEPT',
+'where DNAME = :P10_DNAME and LOC = :P10_LOC;'))
+,p_validation_type=>'NOT_EXISTS'
+,p_error_message=>unistr('Istnieje ju\017C oddzia\0142 o takiej specjalizacji w tej lokalizacji!')
+,p_always_execute=>'Y'
+,p_when_button_pressed=>wwv_flow_imp.id(55214316940760573560)
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(55151819584817987621)
+,p_name=>'New'
+,p_event_sequence=>10
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_imp.id(55214316514473573559)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'click'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(55151819646725987622)
+,p_event_id=>wwv_flow_imp.id(55151819584817987621)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'Y'
+,p_action=>'NATIVE_SET_VALUE'
+,p_affected_elements_type=>'ITEM'
+,p_affected_elements=>'P10_DNAME,P10_LOC'
+,p_attribute_01=>'STATIC_ASSIGNMENT'
+,p_attribute_09=>'N'
+,p_wait_for_result=>'Y'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(55214325155800573571)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'New'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'begin',
+'',
+':P10_WALIDACJA := DODAJ_ODDZIAL(:P10_DNAME,:P10_LOC);',
+'',
+'end;'))
+,p_process_clob_language=>'PLSQL'
+,p_process_error_message=>unistr('B\0142\0105d: &P10_WALIDACJA.')
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>unistr('&P10_WALIDACJA. poprawnie dodano oddzia\0142 &P10_DNAME. do bazy.')
+,p_internal_uid=>55214325155800573571
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(55214322581517573568)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_region_id=>wwv_flow_imp.id(123117495036072906894)
+,p_process_type=>'NATIVE_FORM_INIT'
+,p_process_name=>'Initialize form Wprowadzanie pracownika'
+,p_internal_uid=>55214322581517573568
+);
+end;
+/
+prompt --application/pages/page_00011
+begin
+wwv_flow_imp_page.create_page(
+ p_id=>11
+,p_name=>unistr('Edycja oddzia\0142u')
+,p_alias=>unistr('EDYCJA-ODDZIA\0141U')
+,p_step_title=>unistr('Edycja oddzia\0142u')
+,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'#WPROWADZANIE',
+'{',
+'    background-color: lightslategray;',
+'}'))
+,p_page_template_options=>'#DEFAULT#'
+,p_protection_level=>'C'
+,p_page_component_map=>'21'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(178352143260064548805)
+,p_plug_name=>unistr('Wprowadzanie oddzia\0142u')
+,p_region_name=>'WPROWADZANIE'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(54264481576832069358)
+,p_plug_display_sequence=>10
+,p_plug_grid_column_span=>4
+,p_plug_display_column=>5
+,p_query_type=>'TABLE'
+,p_query_table=>'DEPT'
+,p_include_rowid_column=>false
+,p_plug_source_type=>'NATIVE_IG'
+,p_prn_units=>'INCHES'
+,p_prn_paper_size=>'LETTER'
+,p_prn_width=>11
+,p_prn_height=>8.5
+,p_prn_orientation=>'HORIZONTAL'
+,p_prn_page_header_font_color=>'#000000'
+,p_prn_page_header_font_family=>'Helvetica'
+,p_prn_page_header_font_weight=>'normal'
+,p_prn_page_header_font_size=>'12'
+,p_prn_page_footer_font_color=>'#000000'
+,p_prn_page_footer_font_family=>'Helvetica'
+,p_prn_page_footer_font_weight=>'normal'
+,p_prn_page_footer_font_size=>'12'
+,p_prn_header_bg_color=>'#EEEEEE'
+,p_prn_header_font_color=>'#000000'
+,p_prn_header_font_family=>'Helvetica'
+,p_prn_header_font_weight=>'bold'
+,p_prn_header_font_size=>'10'
+,p_prn_body_bg_color=>'#FFFFFF'
+,p_prn_body_font_color=>'#000000'
+,p_prn_body_font_family=>'Helvetica'
+,p_prn_body_font_weight=>'normal'
+,p_prn_body_font_size=>'10'
+,p_prn_border_width=>.5
+,p_prn_page_header_alignment=>'CENTER'
+,p_prn_page_footer_alignment=>'CENTER'
+,p_prn_border_color=>'#666666'
+,p_ai_enabled=>false
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(55151819905813987625)
+,p_name=>'DEPTNO'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'DEPTNO'
+,p_data_type=>'NUMBER'
+,p_session_state_data_type=>'VARCHAR2'
+,p_is_query_only=>true
+,p_item_type=>'NATIVE_HIDDEN'
+,p_display_sequence=>30
+,p_attribute_01=>'Y'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>false
+,p_is_primary_key=>true
+,p_include_in_export=>false
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(55151820064889987626)
+,p_name=>'DNAME'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'DNAME'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Specjalizacja'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>40
+,p_value_alignment=>'CENTER'
+,p_attribute_05=>'BOTH'
+,p_attribute_06=>'UPPER'
+,p_is_required=>false
+,p_max_length=>50
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_exact_match=>true
+,p_filter_lov_type=>'DISTINCT'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(55151820176145987627)
+,p_name=>'LOC'
+,p_source_type=>'DB_COLUMN'
+,p_source_expression=>'LOC'
+,p_data_type=>'VARCHAR2'
+,p_is_query_only=>false
+,p_item_type=>'NATIVE_TEXT_FIELD'
+,p_heading=>'Lokalizacja'
+,p_heading_alignment=>'CENTER'
+,p_display_sequence=>50
+,p_value_alignment=>'CENTER'
+,p_attribute_05=>'BOTH'
+,p_attribute_06=>'UPPER'
+,p_is_required=>false
+,p_max_length=>50
+,p_enable_filter=>true
+,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
+,p_filter_is_required=>false
+,p_filter_text_case=>'MIXED'
+,p_filter_exact_match=>true
+,p_filter_lov_type=>'DISTINCT'
+,p_use_as_row_header=>false
+,p_enable_sort_group=>true
+,p_enable_control_break=>true
+,p_enable_hide=>true
+,p_is_primary_key=>false
+,p_duplicate_value=>true
+,p_include_in_export=>true
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(55151820268403987628)
+,p_name=>'APEX$ROW_ACTION'
+,p_item_type=>'NATIVE_ROW_ACTION'
+,p_display_sequence=>20
+);
+wwv_flow_imp_page.create_region_column(
+ p_id=>wwv_flow_imp.id(55151820329200987629)
+,p_name=>'APEX$ROW_SELECTOR'
+,p_item_type=>'NATIVE_ROW_SELECTOR'
+,p_display_sequence=>10
+,p_attribute_01=>'Y'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'N'
+);
+wwv_flow_imp_page.create_interactive_grid(
+ p_id=>wwv_flow_imp.id(55151819866981987624)
+,p_internal_uid=>55151819866981987624
+,p_is_editable=>true
+,p_edit_operations=>'i:u:d'
+,p_lost_update_check_type=>'VALUES'
+,p_add_row_if_empty=>false
+,p_submit_checked_rows=>false
+,p_lazy_loading=>false
+,p_requires_filter=>false
+,p_select_first_row=>true
+,p_fixed_row_height=>true
+,p_pagination_type=>'SCROLL'
+,p_show_total_row_count=>true
+,p_show_toolbar=>true
+,p_enable_save_public_report=>false
+,p_enable_subscriptions=>true
+,p_enable_flashback=>true
+,p_define_chart_view=>true
+,p_enable_download=>true
+,p_download_formats=>'CSV:HTML:XLSX:PDF'
+,p_enable_mail_download=>true
+,p_fixed_header=>'PAGE'
+,p_show_icon_view=>false
+,p_show_detail_view=>false
+);
+wwv_flow_imp_page.create_ig_report(
+ p_id=>wwv_flow_imp.id(55236165849308947453)
+,p_interactive_grid_id=>wwv_flow_imp.id(55151819866981987624)
+,p_static_id=>'552361659'
+,p_type=>'PRIMARY'
+,p_default_view=>'GRID'
+,p_show_row_number=>false
+,p_settings_area_expanded=>true
+);
+wwv_flow_imp_page.create_ig_report_view(
+ p_id=>wwv_flow_imp.id(55236166082433947453)
+,p_report_id=>wwv_flow_imp.id(55236165849308947453)
+,p_view_type=>'GRID'
+,p_srv_exclude_null_values=>false
+,p_srv_only_display_columns=>true
+,p_edit_mode=>false
+);
+wwv_flow_imp_page.create_ig_report_column(
+ p_id=>wwv_flow_imp.id(55236166576926947455)
+,p_view_id=>wwv_flow_imp.id(55236166082433947453)
+,p_display_seq=>1
+,p_column_id=>wwv_flow_imp.id(55151819905813987625)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_imp_page.create_ig_report_column(
+ p_id=>wwv_flow_imp.id(55236167463233947457)
+,p_view_id=>wwv_flow_imp.id(55236166082433947453)
+,p_display_seq=>2
+,p_column_id=>wwv_flow_imp.id(55151820064889987626)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_imp_page.create_ig_report_column(
+ p_id=>wwv_flow_imp.id(55236168391910947460)
+,p_view_id=>wwv_flow_imp.id(55236166082433947453)
+,p_display_seq=>3
+,p_column_id=>wwv_flow_imp.id(55151820176145987627)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_imp_page.create_ig_report_column(
+ p_id=>wwv_flow_imp.id(55238760290971950840)
+,p_view_id=>wwv_flow_imp.id(55236166082433947453)
+,p_display_seq=>0
+,p_column_id=>wwv_flow_imp.id(55151820268403987628)
+,p_is_visible=>true
+,p_is_frozen=>false
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151820567033987631)
+,p_tabular_form_region_id=>wwv_flow_imp.id(178352143260064548805)
+,p_validation_name=>'P11_WALIDACJA_SPECJALIZACJI'
+,p_validation_sequence=>70
+,p_validation=>'DNAME'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Specjalizacja nie mo\017Ce by\0107 pusta.')
+,p_associated_column=>'APEX$ROW_ACTION'
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151820622705987632)
+,p_tabular_form_region_id=>wwv_flow_imp.id(178352143260064548805)
+,p_validation_name=>'P11_WALIDACJA_LOKALIZACJI'
+,p_validation_sequence=>80
+,p_validation=>'LOC'
+,p_validation_type=>'ITEM_NOT_NULL'
+,p_error_message=>unistr('Lokalizacja nie mo\017Ce by\0107 pusta.')
+,p_associated_column=>'APEX$ROW_ACTION'
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_validation(
+ p_id=>wwv_flow_imp.id(55151820709294987633)
+,p_tabular_form_region_id=>wwv_flow_imp.id(178352143260064548805)
+,p_validation_name=>'P11_WALIDACJA_DUBEL'
+,p_validation_sequence=>90
+,p_validation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'select * from DEPT',
+'where DNAME = :DNAME and LOC = :LOC;'))
+,p_validation_type=>'NOT_EXISTS'
+,p_error_message=>unistr('Istnieje ju\017C oddzia\0142 o takiej specjalizacji w tej lokalizacji!')
+,p_associated_column=>'APEX$ROW_ACTION'
+,p_error_display_location=>'INLINE_WITH_FIELD_AND_NOTIFICATION'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(55151820400465987630)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_region_id=>wwv_flow_imp.id(178352143260064548805)
+,p_process_type=>'NATIVE_IG_DML'
+,p_process_name=>unistr('Wprowadzanie oddzia\0142u - Save Interactive Grid Data')
+,p_attribute_01=>'REGION_SOURCE'
+,p_attribute_05=>'Y'
+,p_attribute_06=>'Y'
+,p_attribute_08=>'Y'
+,p_process_error_message=>unistr('B\0142\0105d.')
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_process_success_message=>'Poprawnie zapisano zmiany.'
+,p_internal_uid=>55151820400465987630
 );
 end;
 /
